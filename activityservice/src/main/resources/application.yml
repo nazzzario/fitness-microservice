@@ -1,9 +1,20 @@
+server:
+  port: 8081
 spring:
   application:
     name: activityservice
   mongodb:
     uri: mongodb://localhost:27017/test
-#    database: ${MONGODB_DB}
-
-server:
-  port: 8081
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true
+    operations-sorter: method
+    tags-sorter: alpha
+    doc-expansion: list
+    filter: true
+    show-logo: true
+    url: /v3/api-docs
+    urls-primary-name: "Activity Service API"

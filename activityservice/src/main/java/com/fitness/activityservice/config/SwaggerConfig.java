@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * Swagger/OpenAPI configuration for the User Service.
+ * Swagger/OpenAPI configuration for the Activity Service.
  * Provides API documentation through Swagger UI.
  */
 @Configuration
@@ -20,11 +20,11 @@ public class SwaggerConfig {
      * @return OpenAPI configuration with service information
      */
     @Bean
-    public OpenAPI userServiceOpenAPI() {
+    public OpenAPI activityServiceOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("User Service API")
-                        .description("REST API for user management and authentication in the Fitness Microservice application")
+                        .title("Activity Service API")
+                        .description("REST API for activity management and authentication in the Fitness Microservice application")
                         .version("1.0.0")
                         .contact(new Contact()
                                 .name("Fitness Team")
