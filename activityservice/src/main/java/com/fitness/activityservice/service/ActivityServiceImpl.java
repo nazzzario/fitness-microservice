@@ -1,6 +1,7 @@
 package com.fitness.activityservice.service;
 
-import com.fitness.activityservice.dto.ActivityDto;
+import com.fitness.activityservice.dto.ActivityRequest;
+import com.fitness.activityservice.dto.ActivityResponse;
 import com.fitness.activityservice.exception.ResourceNotFoundException;
 import com.fitness.activityservice.mapper.ActivityMapper;
 import com.fitness.activityservice.model.Activity;
@@ -14,44 +15,27 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class ActivityServiceImpl implements ActivityService {
+
     private final ActivityRepository repository;
+    private final ActivityMapper activityMapper;
 
     @Override
-    public ActivityDto createActivity(ActivityDto dto) {
-        Activity toSave = ActivityMapper.toEntity(dto);
+    public ActivityResponse trackActivity(ActivityRequest dto) {
+        Activity toSave = activityMapper.toEntity(dto);
         Activity saved = repository.save(toSave);
-        return ActivityMapper.toDto(saved);
+        return activityMapper.toResponse(saved);
     }
 
     @Override
-    public List<ActivityDto> getAllActivities() {
-        return repository.findAll()
-                .stream()
-                .map(ActivityMapper::toDto)
+    public List<ActivityResponse> getAllActivities() {
+        return repository.findAll().stream()
+                .map(activityMapper::toResponse)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public ActivityDto getActivityById(String id) {
-        Activity activity = repository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Activity not found: " + id));
-        return ActivityMapper.toDto(activity);
-    }
-
-    @Override
-    public ActivityDto updateActivity(String id, ActivityDto dto) {
-        Activity existing = repository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Activity not found: " + id));
-
-        existing.setUserId(dto.getUserId());
-        existing.setType(dto.getType());
-        existing.setDuration(dto.getDuration());
-        existing.setCaloriesBurned(dto.getCaloriesBurned());
-        existing.setStartTime(dto.getStartTime());
-        existing.setAdditionalMatrices(dto.getAdditionalMatrices());
-
-        Activity updated = repository.save(existing);
-        return ActivityMapper.toDto(updated);
+    public ActivityResponse getActivityById(String id) {
+        return activityMapper.toResponse(repository.findById(id).orElseThrow());
     }
 
     @Override

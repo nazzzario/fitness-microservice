@@ -4,7 +4,7 @@ spring:
   application:
     name: activityservice
   mongodb:
-    uri: mongodb://localhost:27017/test
+    uri: mongodb://localhost:27017/fitnessactivity
 springdoc:
   api-docs:
     path: /v3/api-docs

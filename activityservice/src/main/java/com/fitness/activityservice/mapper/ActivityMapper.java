@@ -1,38 +1,17 @@
 package com.fitness.activityservice.mapper;
 
-import com.fitness.activityservice.dto.ActivityDto;
+
+import com.fitness.activityservice.dto.ActivityRequest;
+import com.fitness.activityservice.dto.ActivityResponse;
 import com.fitness.activityservice.model.Activity;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
-public class ActivityMapper {
-    public static ActivityDto toDto(Activity activity) {
-        if (activity == null) {
-            return null;
-        }
-        return ActivityDto.builder()
-                .id(activity.getId())
-                .userId(activity.getUserId())
-                .type(activity.getType())
-                .duration(activity.getDuration())
-                .caloriesBurned(activity.getCaloriesBurned())
-                .startTime(activity.getStartTime())
-                .additionalMatrices(activity.getAdditionalMatrices())
-                .createdAt(activity.getCreatedAt())
-                .updatedAt(activity.getUpdatedAt())
-                .build();
-    }
+@Mapper(componentModel = "spring")
+public interface ActivityMapper {
 
-    public static Activity toEntity(ActivityDto dto) {
-        if (dto == null) {
-            return null;
-        }
-        return Activity.builder()
-                .id(dto.getId())
-                .userId(dto.getUserId())
-                .type(dto.getType())
-                .duration(dto.getDuration())
-                .caloriesBurned(dto.getCaloriesBurned())
-                .startTime(dto.getStartTime())
-                .additionalMatrices(dto.getAdditionalMatrices())
-                .build();
-    }
+    @Mapping(target = "id", ignore = true)
+    Activity toEntity(ActivityRequest activity);
+
+    ActivityResponse toResponse(Activity activity);
 }
