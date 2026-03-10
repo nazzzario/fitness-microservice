@@ -14,4 +14,6 @@ public interface ActivityService {
     List<ActivityResponse> getAllActivities();
 
     ActivityResponse getActivityById(String id);
+
+    List<ActivityResponse> getUserActivities(String userID);
 }

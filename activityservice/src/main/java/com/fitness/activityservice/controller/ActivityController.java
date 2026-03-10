@@ -35,6 +35,13 @@ public class ActivityController {
         return ResponseEntity.ok(activityService.trackActivity(request));
     }
 
+    @Operation(summary = "List user activities", description = "Returns all user activities")
+    @ApiResponse(responseCode = "200", description = "Successful retrieval", content = @Content(mediaType = "application/json"))
+    @GetMapping("/{userID}")
+    public ResponseEntity<List<ActivityResponse>> getUserActivities(@PathVariable String userID) {
+        return ResponseEntity.ok(activityService.getUserActivities(userID));
+    }
+
     @Operation(summary = "List activities", description = "Returns all activities")
     @ApiResponse(responseCode = "200", description = "Successful retrieval", content = @Content(mediaType = "application/json"))
     @GetMapping
@@ -51,6 +58,8 @@ public class ActivityController {
     public ResponseEntity<ActivityResponse> get(@Parameter(description = "ID of the activity to retrieve") @PathVariable String id) {
         return ResponseEntity.ok(activityService.getActivityById(id));
     }
+
+
 
     @Operation(summary = "Delete activity", description = "Removes an activity by ID")
     @ApiResponses(value = {

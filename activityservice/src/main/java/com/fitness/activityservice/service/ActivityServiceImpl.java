@@ -39,6 +39,13 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
+    public List<ActivityResponse> getUserActivities(String userID) {
+        return repository.findByUserId(userID).stream()
+                .map(activityMapper::toResponse)
+                .toList();
+    }
+
+    @Override
     public void deleteActivity(String id) {
         if (!repository.existsById(id)) {
             throw new ResourceNotFoundException("Activity not found: " + id);
