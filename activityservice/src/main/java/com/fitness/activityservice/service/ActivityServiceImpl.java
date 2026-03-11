@@ -18,9 +18,14 @@ public class ActivityServiceImpl implements ActivityService {
 
     private final ActivityRepository repository;
     private final ActivityMapper activityMapper;
+    private final UserValidationService userValidationService;
 
     @Override
     public ActivityResponse trackActivity(ActivityRequest dto) {
+        boolean isUserValid = userValidationService.validateUser(dto.getUserId());
+        if (!isUserValid) {
+            throw new RuntimeException("Invalid user id: "  + dto.getUserId());
+        }
         Activity toSave = activityMapper.toEntity(dto);
         Activity saved = repository.save(toSave);
         return activityMapper.toResponse(saved);
