@@ -2,7 +2,7 @@ server:
   port: 8081
 spring:
   application:
-    name: activityservice
+    name: activity-service
   mongodb:
     uri: mongodb://localhost:27017/fitnessactivity
 springdoc:
@@ -18,3 +18,8 @@ springdoc:
     show-logo: true
     url: /v3/api-docs
     urls-primary-name: "Activity Service API"
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8082/eureka/
